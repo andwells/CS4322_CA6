@@ -1,2 +1,2 @@
-2015-04-21 19:42:41.099 [Worker-0] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[ucls]: com.objectaid.uml.cls.model.ClassDiagramFactory@6978c4
-2015-04-21 19:42:41.115 [Worker-0] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[useq]: com.objectaid.uml.seq.model.SequenceDiagramFactory@b1e8de
+2015-04-22 18:51:12.009 [Worker-1] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[ucls]: com.objectaid.uml.cls.model.ClassDiagramFactory@13d77d1
+2015-04-22 18:51:12.071 [Worker-1] INFO    com.objectaid.uml.model.manage.DiagramManager getFactories: com.objectaid.uml.diagramFactories[useq]: com.objectaid.uml.seq.model.SequenceDiagramFactory@f2c726

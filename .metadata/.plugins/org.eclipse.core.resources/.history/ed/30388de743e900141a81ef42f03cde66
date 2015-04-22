@@ -1,0 +1,40 @@
+public class CoffeePot implements Observer
+{
+	private boolean potOn;
+	
+	@Override
+	public void update(Object arg)
+	{
+		arg.getClass().getSimpleName();
+//		if(true)
+//		{
+//			
+//		}
+	}
+
+	public void turnOn()
+	{
+		this.potOn = true;
+	}
+	
+	public void turnOff()
+	{
+		this.potOn = false;
+	}
+	
+	public void brew()
+	{
+		if(potOn)
+		{
+			System.out.println(this.getClass().getSimpleName() + ": brewing...");
+		}
+	}
+	
+	public void simmer()
+	{
+		if(potOn)
+		{
+			System.out.println(this.getClass().getSimpleName() + ": simmering...");
+		}
+	}
+}

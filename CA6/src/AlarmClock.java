@@ -1,20 +1,24 @@
-public class AlarmClock {
+public class AlarmClock
+{
 
 	private ACTime time;
 	private ACTime alarmTime;
 	private ACState currentState;
 
-	public AlarmClock() {
+	public AlarmClock()
+	{
 		time = new ACTime(0, 0);
 		alarmTime = new ACTime(0, 0);
 		setState(AlarmOffState.getInstance());
 	}
 
-	public ACTime getTime() {
+	public ACTime getTime()
+	{
 		return time;
 	}
 
-	public ACTime getAlarmTime() {
+	public ACTime getAlarmTime()
+	{
 		return alarmTime;
 	}
 
@@ -40,12 +44,15 @@ public class AlarmClock {
 		currentState.snooze(this);
 	}
 
-	void setState(ACState newState) {
-		if (currentState != null) {
+	void setState(ACState newState)
+	{
+		if (currentState != null)
+		{
 			currentState.exit(this);
 		}
 		currentState = newState;
-		if (currentState != null) {
+		if (currentState != null)
+		{
 			System.out.println(currentState.getClass().getName() + 
 					" [" + time + "]");
 			currentState.enter(this);
