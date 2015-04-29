@@ -4,12 +4,12 @@ class BuzzingState extends ACState {
 	public static BuzzingState getInstance() { return instance; }
 	private BuzzingState() {}
 
-	public void turnAlarmOff(AlarmClock clock) {
-		clock.setState(AlarmOffState.getInstance());
-	}
+//	public void turnAlarmOff(AlarmClock clock) {
+//		clock.setState(AlarmOffState.getInstance());
+//	}
 
-	public void snooze(AlarmClock clock) {
-		clock.setState(SnoozingState.getInstance());
-	}
+//	public void snooze(AlarmClock clock) {
+//		clock.setState(SnoozingState.getInstance());
+//	}
 	
 }

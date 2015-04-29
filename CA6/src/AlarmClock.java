@@ -1,24 +1,22 @@
-public class AlarmClock
-{
+public class AlarmClock {
 
 	private ACTime time;
 	private ACTime alarmTime;
 	private ACState currentState;
+	private ACProxy proxy;
 
-	public AlarmClock()
-	{
+	public AlarmClock() {
 		time = new ACTime(0, 0);
 		alarmTime = new ACTime(0, 0);
-		setState(AlarmOffState.getInstance());
+		//setState(AlarmOffState.getInstance());
+		currentState = new ACProxy(this);
 	}
 
-	public ACTime getTime()
-	{
+	public ACTime getTime() {
 		return time;
 	}
 
-	public ACTime getAlarmTime()
-	{
+	public ACTime getAlarmTime() {
 		return alarmTime;
 	}
 
@@ -43,16 +41,17 @@ public class AlarmClock
 	public void snooze() {
 		currentState.snooze(this);
 	}
+	
+	public ACState getState() {
+		return currentState;
+	}
 
-	void setState(ACState newState)
-	{
-		if (currentState != null)
-		{
+	void setState(ACState newState) {
+		if (currentState != null) {
 			currentState.exit(this);
 		}
 		currentState = newState;
-		if (currentState != null)
-		{
+		if (currentState != null) {
 			System.out.println(currentState.getClass().getName() + 
 					" [" + time + "]");
 			currentState.enter(this);

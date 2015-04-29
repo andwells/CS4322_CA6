@@ -8,13 +8,13 @@ class AlarmOnState extends ACState
 	public void setTime(AlarmClock clock) {
 		ACTime currentTime = clock.getTime();
 		ACTime alarmTime = clock.getAlarmTime();
-		if (currentTime.equals(alarmTime)) {
-			clock.setState(BuzzingState.getInstance());
-		}
+//		if (currentTime.equals(alarmTime)) {
+//			clock.setState(BuzzingState.getInstance());
+//		}
 	}
 
-	public void turnAlarmOff(AlarmClock clock) {
-		clock.setState(AlarmOffState.getInstance());
-	}
+//	public void turnAlarmOff(AlarmClock clock) {
+//		clock.setState(AlarmOffState.getInstance());
+//	}
 
 }

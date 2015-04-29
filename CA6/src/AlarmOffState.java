@@ -4,8 +4,8 @@ class AlarmOffState extends ACState {
 	public static AlarmOffState getInstance() { return instance; }
 	private AlarmOffState() {}
 
-	public void turnAlarmOn(AlarmClock clock) {
-		clock.setState(AlarmOnState.getInstance());
-	}
+//	public void turnAlarmOn(AlarmClock clock) {
+//		clock.setState(AlarmOnState.getInstance());
+//	}
 
 }

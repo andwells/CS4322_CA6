@@ -16,13 +16,13 @@ class SnoozingState extends ACState {
 
 	public void setTime(AlarmClock clock) {
 		ACTime currentTime = clock.getTime();
-		if (currentTime.equals(activateTime)) {
-			clock.setState(BuzzingState.getInstance());
-		}
+//		if (currentTime.equals(activateTime)) {
+//			clock.setState(BuzzingState.getInstance());
+//		}
 	}
 
-	public void turnAlarmOff(AlarmClock clock) {
-		clock.setState(AlarmOffState.getInstance());
-	}
+//	public void turnAlarmOff(AlarmClock clock) {
+//		clock.setState(AlarmOffState.getInstance());
+//	}
 
 }
