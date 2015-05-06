@@ -1,0 +1,4 @@
+State: AlarmOnState	Time: 7:57	AlarmTime: 8:0
+State: BuzzingState	Time: 8:0	AlarmTime: 8:0
+State: SnoozingState	Time: 8:7	AlarmTime: 8:0
+State: AlarmOffState	Time: 8:27	AlarmTime: 8:0

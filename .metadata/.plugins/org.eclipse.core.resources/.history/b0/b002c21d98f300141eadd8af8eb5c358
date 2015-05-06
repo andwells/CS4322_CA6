@@ -1,0 +1,114 @@
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.awt.Toolkit;
+
+public class ACProxy extends ACState implements Subject 
+{
+	
+	private PrintWriter write;
+	private ACState currentState;
+	private AlarmClock clock;
+	private ArrayList<Observer> observers;
+	
+	public ACProxy(AlarmClock clock) {
+		this.clock = clock;
+		AlarmOffState off = AlarmOffState.getInstance();
+		AlarmOnState on = AlarmOnState.getInstance();
+		BuzzingState buzz = BuzzingState.getInstance();
+		SnoozingState snooze = SnoozingState.getInstance();
+		currentState = off;
+		try {
+			write = new PrintWriter("ClockLog.txt");
+		}
+		catch(Exception ex) {
+			System.out.println("File Not Found " + ex.getMessage());
+		}
+		observers = new ArrayList<Observer>();
+	}
+	
+	void setState(ACState newState) {
+		if (currentState != null) {
+			currentState.exit(clock);
+		}
+		currentState = newState;
+		if (currentState != null) {
+			log();
+			currentState.enter(clock);
+		}
+	}
+	
+	public void turnAlarmOff(AlarmClock clock) {
+		//clock.setState(AlarmOffState.getInstance());
+		setState(AlarmOffState.getInstance());
+	}
+	
+	public void turnAlarmOn(AlarmClock clock) {
+		//clock.setState(AlarmOnState.getInstance());
+		setState(AlarmOnState.getInstance());
+	}
+	
+	public void setTime(AlarmClock clock)
+	{
+		if (this.clock.getTime().equals(this.clock.getAlarmTime())) 
+		{
+			setState(BuzzingState.getInstance());
+			buzz(clock);
+		}
+	}
+	
+	public void buzz(AlarmClock clock) {
+		if (clock.getTime().equals(clock.getAlarmTime())) {
+			//clock.setState(BuzzingState.getInstance());
+//			setState(BuzzingState.getInstance());
+			try
+			{
+				this.wait(1);
+			}
+			catch(Exception ex)
+			{
+				
+			}
+		}
+	}
+	
+	public void snooze(AlarmClock clock) {
+		//clock.setState(SnoozingState.getInstance());
+		setState(SnoozingState.getInstance());
+	}
+	
+	public void log()
+	{
+		this.notifyObservers(currentState);
+		write.println("State: "+currentState.getClass().getSimpleName()+"\tTime: "+clock.getTime()+"\tAlarmTime: "+clock.getAlarmTime());
+		write.flush();
+	}
+
+	@Override
+	public void notifyObservers(Object arg) 
+	{
+		for(Observer o : observers)
+		{
+			o.update(currentState);
+		}		
+	}
+	
+	@Override
+	public Boolean register(Observer anObserver)
+	{	
+		observers.add(anObserver);
+		return true;
+	}
+
+	@Override
+	public Boolean unregister(Observer toRemove)
+	{
+		if(toRemove != null && observers.contains(toRemove))
+		{
+			observers.remove(observers.indexOf(toRemove));
+			return true;
+		}
+		
+		return false;
+	}
+}

@@ -1,11 +1,16 @@
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.awt.Toolkit;
 
-public class ACProxy extends ACState {
+
+public class ACProxy extends ACState implements Subject 
+{
 	
 	private PrintWriter write;
 	private ACState currentState;
 	private AlarmClock clock;
+	private ArrayList<Observer> observers;
 	
 	public ACProxy(AlarmClock clock) {
 		this.clock = clock;
@@ -20,6 +25,7 @@ public class ACProxy extends ACState {
 		catch(Exception ex) {
 			System.out.println("File Not Found " + ex.getMessage());
 		}
+		observers = new ArrayList<Observer>();
 	}
 	
 	void setState(ACState newState) {
@@ -43,10 +49,43 @@ public class ACProxy extends ACState {
 		setState(AlarmOnState.getInstance());
 	}
 	
-	public void buzz(AlarmClock clock) {
-		if (clock.getTime().equals(clock.getAlarmTime())) {
-			//clock.setState(BuzzingState.getInstance());
+	public void setTime(AlarmClock clock)
+	{
+		if (this.clock.getTime().equals(this.clock.getAlarmTime())) 
+		{
 			setState(BuzzingState.getInstance());
+			buzz(clock);
+		}
+	}
+	
+	public void buzz(AlarmClock clock) {
+		if (clock.getTime().equals(clock.getAlarmTime())) 
+		{
+			//clock.setState(BuzzingState.getInstance());
+//			setState(BuzzingState.getInstance());
+			
+			Runnable r = new Runnable()
+			{
+					public void run()
+					{
+						Toolkit t = Toolkit.getDefaultToolkit();
+						for(int i = 0; i < 5; i++)
+						{
+							System.out.println("Buzzing");
+							t.beep();
+							try
+							{
+								Thread.sleep(1000);
+							}
+							catch(Exception ex)
+							{
+								System.out.println(ex);
+							}
+						}
+					}
+					};
+				
+			r.run();
 		}
 	}
 	
@@ -55,8 +94,38 @@ public class ACProxy extends ACState {
 		setState(SnoozingState.getInstance());
 	}
 	
-	public void log() {
+	public void log()
+	{
+		this.notifyObservers(currentState);
 		write.println("State: "+currentState.getClass().getSimpleName()+"\tTime: "+clock.getTime()+"\tAlarmTime: "+clock.getAlarmTime());
 		write.flush();
+	}
+
+	@Override
+	public void notifyObservers(Object arg) 
+	{
+		for(Observer o : observers)
+		{
+			o.update(currentState);
+		}		
+	}
+	
+	@Override
+	public Boolean register(Observer anObserver)
+	{	
+		observers.add(anObserver);
+		return true;
+	}
+
+	@Override
+	public Boolean unregister(Observer toRemove)
+	{
+		if(toRemove != null && observers.contains(toRemove))
+		{
+			observers.remove(observers.indexOf(toRemove));
+			return true;
+		}
+		
+		return false;
 	}
 }

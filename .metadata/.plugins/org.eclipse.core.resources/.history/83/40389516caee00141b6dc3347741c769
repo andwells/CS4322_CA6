@@ -1,0 +1,13 @@
+//import java.util.ArrayList;
+public interface Subject
+{
+  public void notifyObservers(Object arg);
+  
+  public void notifyObservers();
+  
+  public Boolean subscribe(Observer anObserver);
+  
+  public Boolean unsubscribe(Observer toRemove);
+  
+  //public void start();
+}

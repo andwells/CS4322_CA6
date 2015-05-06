@@ -5,23 +5,24 @@ public class CoffeePot implements Observer
 	@Override
 	public void update(Object arg)
 	{
-//		String text = arg.getClass().getSimpleName();
-		String text = (String)arg;
+		String text = arg.getClass().getSimpleName();
+//		String text = (String)arg;
 		switch (text)
 		{
-			case "on":
+			case "AlarmOnState":
 				this.turnOn();
 				break;
-			case "off":
+			case "AlarmOffState":
 				this.turnOff();
 				break;
-			case "buzzing":
+			case "BuzzingState":
 				this.brew();
 				break;
-			case "snoozing":
+			case "SnoozingState":
 				this.warm();
 				break;
 			default:
+				
 				System.out.println(this.getClass().getSimpleName() +": I'm just a coffee pot. I don't understand all your fancy commands.");
 				break;
 					
@@ -32,11 +33,13 @@ public class CoffeePot implements Observer
 	public void turnOn()
 	{
 		this.potOn = true;
+		System.out.println("Turning coffee pot on...");
 	}
 	
 	public void turnOff()
 	{
 		this.potOn = false;
+		System.out.println("Turning coffee pot off...");
 	}
 	
 	public void brew()
